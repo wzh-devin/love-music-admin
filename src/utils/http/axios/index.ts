@@ -5,8 +5,9 @@
  * @version 1.0
  * @since 1.0
  */
-import axios, {AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
 import {RequestOptions} from "./axios";
+import axiosInstance from "./request.ts";
 
 /**
  * 封装get请求
@@ -16,10 +17,10 @@ import {RequestOptions} from "./axios";
  */
 export function get(config: AxiosRequestConfig, options?: RequestOptions): Promise {
     return new Promise((resolve, reject) => {
-        axios.get(config.url, options)
+        axiosInstance.get(config.url, options)
             .then(
                 // 响应成功，返回数据
-                response => response(response.data),
+                response => response(response?.data),
                 // 响应失败，返回错误信息
                 error => reject(error)
             )
@@ -33,10 +34,10 @@ export function get(config: AxiosRequestConfig, options?: RequestOptions): Promi
  */
 export function post(config: AxiosRequestConfig): Promise {
     return new Promise((resolve, reject) => {
-        axios.post(config.url, config.data)
+        axiosInstance.post(config.url, config.data)
             .then(
                 // 响应成功，返回数据
-                response => response(response.data),
+                response => resolve(response?.data),
                 // 响应失败，返回错误信息
                 error => reject(error)
             )
@@ -50,10 +51,10 @@ export function post(config: AxiosRequestConfig): Promise {
  */
 export function put(config: AxiosRequestConfig): Promise {
     return new Promise((resolve, reject) => {
-        axios.post(config.url, config.data)
+        axiosInstance.post(config.url, config.data)
             .then(
                 // 响应成功，返回数据
-                response => response(response.data),
+                response => resolve(response?.data),
                 // 响应失败，返回错误信息
                 error => reject(error)
             )
@@ -67,10 +68,10 @@ export function put(config: AxiosRequestConfig): Promise {
  */
 export function del(config: AxiosRequestConfig): Promise {
     return new Promise((resolve, reject) => {
-        axios.post(config.url, config.data)
+        axiosInstance.post(config.url, config.data)
             .then(
                 // 响应成功，返回数据
-                response => response(response.data),
+                response => resolve(response?.data),
                 // 响应失败，返回错误信息
                 error => reject(error)
             )

@@ -6,23 +6,25 @@
  * @since 1.0
  */
 import axios, {AxiosInstance} from "axios";
+import {LocalStorageEnum} from "../../../enums";
+
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 // axios实例
 const axiosInstance: AxiosInstance = axios.create({
-    baseURL: process.env.NODE_HOST,
+    baseURL: baseUrl,
     timeout: 5000, // 超时时间
-    withCredentials: true, // 允许跨域
     headers: {
-        post: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" // 设置响应头
-        }
+        "Content-Type": "application/json;charset=UTF-8"
     }
 });
 
 // 设置请求拦截器
 axiosInstance.interceptors.request.use(
     request => {
-        // 请求发送前，需要做的事情
+        // 从本地取出token
+        const token: string | null = localStorage.getItem(LocalStorageEnum.AUTHORIZATION);
+        request.headers.Authorization = token ? `Bearer ${token}` : '';
         return request;
     },
     error => {
@@ -35,7 +37,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => {
         // 200状态码，响应成功可以取出数据
-        response.status === 200 ? Promise.resolve(response) : Promise.reject(response);
+        return response.status === 200 ? Promise.resolve(response) : Promise.reject(response);
     },
     error => {
         // 非2**状态码

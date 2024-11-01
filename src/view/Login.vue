@@ -2,8 +2,17 @@
   <div class="login-container">
     <div class="login-title">{{ title }}</div>
     <div class="login">
-      <el-form :model="formData">
-
+      <el-form :model="formData" :rules="rules">
+        <el-form-item prop="username">
+          <el-input type="text" placeholder="请输入用户名" v-model="formData.username"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input type="password" placeholder="请输入密码" v-model="formData.password"
+                    @keyup.enter="submitForm"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="login-btn" type="primary" @click="submitForm">登录</el-button>
+        </el-form-item>
       </el-form>
     </div>
   </div>
@@ -17,7 +26,53 @@
    * @version 1.0
    * @since 1.0
    */
-  const title = '爱音乐';
+  import {getCurrentInstance, reactive} from "vue";
+  import {RouterPath, StaticString} from "../enums";
+  import {RequestHandler} from "../api";
+  import router from "../router";
+  import {ApiResponse} from "../api/entity/response.ts";
+  import {ElMessage} from "element-plus";
+
+  const title = StaticString.TITLE;
+  const requestHandler = RequestHandler.getInstance();
+  const proxy = getCurrentInstance();
+
+  const formData = reactive({
+    username: 'devin',
+    password: '123'
+  });
+
+  const rules = reactive({
+    username: [
+      {
+        required: true,
+        message: '请输入用户名',
+        trigger: 'blur'
+      }
+    ],
+    password: [{
+      required: true,
+      message: '请输入密码',
+      trigger: 'blur'
+    }]
+  })
+
+  /**
+   * 提交表单数据
+   */
+  const submitForm = async () => {
+    const result = await requestHandler.login(formData) as ApiResponse;
+
+    ElMessage({
+      message: result.options?.message,
+      type: result.options?.type
+    })
+
+    if (result.isSuccess) {
+      // TODO 后续优化管理
+      await router.push({path: RouterPath.Home});
+    }
+  }
 </script>
 
 <style scoped>
