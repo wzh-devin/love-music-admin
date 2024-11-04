@@ -21,22 +21,22 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: '/music',
                 name: 'music',
-                component: () => import('../views/Music.vue')
+                component: () => import('../views/subpages/Music.vue')
             },
             {
                 path: '/singer',
                 name: 'singer',
-                component: () => import('../views/Singer.vue')
+                component: () => import('../views/subpages/Singer.vue')
             },
             {
                 path: '/album',
                 name: 'album',
-                component: () => import('../views/Album.vue')
+                component: () => import('../views/subpages/Album.vue')
             },
             {
                 path: '/systemManager',
                 name: 'systemManager',
-                component: () => import('../views/SystemManager.vue')
+                component: () => import('../views/subpages/SystemManager.vue')
             }
         ]
     }
