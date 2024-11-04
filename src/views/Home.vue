@@ -47,4 +47,8 @@ onUnmounted(() => {
     padding: 20px;
     overflow-y: scroll;
   }
+
+  .content-collapse {
+    left: 65px;
+  }
 </style>
