@@ -7,5 +7,10 @@
  */
 export enum RouterPath {
     Success = '/success',
+    Error = '/error',
     Home = '/home',
+    Music = '/music',
+    Album = '/album',
+    Singer = '/singer',
+    SystemManager = '/systemManager'
 }

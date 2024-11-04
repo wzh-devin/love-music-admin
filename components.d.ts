@@ -15,8 +15,12 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
-    Login: typeof import('./src/view/Login.vue')['default']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    Login: typeof import('./src/views/Login.vue')['default']
     LoveHeader: typeof import('./src/components/layout/LoveHeader.vue')['default']
+    LoveMenu: typeof import('./src/components/layout/LoveSideBar.vue')['default']
+    LoveSideBar: typeof import('./src/components/layout/LoveSideBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

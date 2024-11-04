@@ -19,6 +19,10 @@ export class RouterManager {
     public static skipRoute(options: RouterOptions): void {
         switch (options.path) {
             case RouterPath.Home:
+            case RouterPath.Music:
+            case RouterPath.Singer:
+            case RouterPath.Album:
+            case RouterPath.SystemManager:
             case RouterPath.Success: {
                 this.skipPush(options.path, options.query);
                 break;
