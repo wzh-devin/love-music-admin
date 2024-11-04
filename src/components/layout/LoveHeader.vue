@@ -43,10 +43,9 @@
   import {Expand, Fold} from "@element-plus/icons-vue";
   import {EventEnum} from "../../event";
 
-  let collapse = ref(true);
+  let collapse = ref(false);
 
   onMounted(() => {
-    console.log(collapse.value)
     if (document.body.clientWidth < 1500) {
       collapseChange();
     }

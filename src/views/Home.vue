@@ -19,7 +19,7 @@ import {emitter} from "../event/emitter.ts";
 import {onMounted, onUnmounted, ref} from "vue";
 import {EventEnum} from "../event";
 
-let collapse = ref(false);
+let collapse = ref(true);
 
 onMounted(() => {
   emitter.on(EventEnum.CollapseChange, (msg) => {
