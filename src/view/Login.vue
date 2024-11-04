@@ -29,16 +29,16 @@
   import {getCurrentInstance, reactive} from "vue";
   import {RouterPath, StaticString} from "../enums";
   import {RequestHandler} from "../api";
-  import router from "../router";
   import {ApiResponse} from "../api/entity/response.ts";
   import {ElMessage} from "element-plus";
+  import {RouterManager} from "../manager/router-manager.ts";
 
   const title = StaticString.TITLE;
   const requestHandler = RequestHandler.getInstance();
   const proxy = getCurrentInstance();
 
   const formData = reactive({
-    username: 'devin',
+    username: 'admin',
     password: '123'
   });
 
@@ -69,8 +69,7 @@
     })
 
     if (result.isSuccess) {
-      // TODO 后续优化管理
-      await router.push({path: RouterPath.Home});
+      await RouterManager.skipRoute({path: RouterPath.Home});
     }
   }
 </script>

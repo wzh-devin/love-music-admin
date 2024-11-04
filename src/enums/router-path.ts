@@ -6,5 +6,6 @@
  * @since 1.0
  */
 export enum RouterPath {
+    Success = '/success',
     Home = '/home',
 }

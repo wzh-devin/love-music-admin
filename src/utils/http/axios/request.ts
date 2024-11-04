@@ -13,9 +13,10 @@ const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 // axios实例
 const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
+    withCredentials: true, // 允许跨域
     timeout: 5000, // 超时时间
     headers: {
-        "Content-Type": "application/json;charset=UTF-8"
+        "Content-Type": "application/json;charset=UTF-8",
     }
 });
 
@@ -24,7 +25,7 @@ axiosInstance.interceptors.request.use(
     request => {
         // 从本地取出token
         const token: string | null = localStorage.getItem(LocalStorageEnum.AUTHORIZATION);
-        request.headers.Authorization = token ? `Bearer ${token}` : '';
+        request.headers.Authorization = token === null ? '' : `Bearer ${token}`;
         return request;
     },
     error => {
