@@ -5,7 +5,7 @@
  * @version 1.0
  * @since 1.0
  */
-import axios, {AxiosInstance} from "axios";
+import axios, {AxiosInstance, options} from "axios";
 import {LocalStorageEnum} from "../../../enums";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_URL;
@@ -15,9 +15,9 @@ const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     withCredentials: true, // 允许跨域
     timeout: 5000, // 超时时间
-    headers: {
+    headers: Object.assign({
         "Content-Type": "application/json;charset=UTF-8",
-    }
+    })
 });
 
 // 设置请求拦截器

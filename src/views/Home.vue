@@ -2,11 +2,14 @@
   <LoveHeader/>
   <LoveSideBar/>
   <div class="content-box" :class="{ 'content-collapse': collapse }">
-    <router-view></router-view>
+    <el-config-provider :locale="lang">
+      <router-view></router-view>
+    </el-config-provider>
   </div>
 </template>
 
-<script setup lang="ts">/**
+<script setup lang="ts">
+/**
  * 2024/11/2 0:00
  * @author <a href="https://github.com/wzh-devin">devin</a>
  * @description 后台管理的家页面
@@ -18,8 +21,11 @@ import LoveSideBar from "../components/layout/LoveSideBar.vue";
 import {emitter} from "../event/emitter.ts";
 import {onMounted, onUnmounted, ref} from "vue";
 import {EventEnum} from "../event";
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
-let collapse = ref(true);
+let collapse = ref(false);
+
+const lang = ref(zhCn);
 
 onMounted(() => {
   emitter.on(EventEnum.CollapseChange, (msg) => {
@@ -49,6 +55,6 @@ onUnmounted(() => {
   }
 
   .content-collapse {
-    left: 65px;
+    left: 90px;
   }
 </style>

@@ -20,7 +20,7 @@ export function get(config: AxiosRequestConfig, options?: RequestOptions): Promi
         axiosInstance.get(config.url, options)
             .then(
                 // 响应成功，返回数据
-                response => response(response?.data),
+                response => resolve(response?.data),
                 // 响应失败，返回错误信息
                 error => reject(error)
             )

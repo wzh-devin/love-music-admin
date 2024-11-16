@@ -1,4 +1,4 @@
-import {post} from "../../utils/http/axios";
+import {post, get} from "../../utils/http/axios";
 import {LocalStorageEnum} from "../../enums";
 
 /**
@@ -33,6 +33,41 @@ export class RequestHandler {
             error => {
                 // 错误信息
                 console.log(error);
+                return error;
+            }
+        )
+    }
+
+    /**
+     * 获取所有歌手信息
+     */
+    public async getSingerList() {
+        return get({
+            url: '/singer/list'
+        }).then(
+            res => {
+                return res;
+            },
+            error => {
+                // console.error(`错误信息: ${error}`);
+                return error;
+            }
+        )
+    }
+
+    /**
+     * 添加歌手
+     * @param data
+     */
+    public async addSinger(data) {
+        post({
+            url: '/singer/add',
+            data
+        }).then(
+            res => {
+                return res;
+            },
+            error => {
                 return error;
             }
         )
