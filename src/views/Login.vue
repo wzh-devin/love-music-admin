@@ -30,7 +30,6 @@
   import {RouterPath, StaticString} from "../enums";
   import {RequestHandler} from "../api";
   import {ApiResponse} from "../api/entity/response.ts";
-  import {ElMessage} from "element-plus";
   import {RouterManager} from "../manager/router-manager.ts";
 
   const title = StaticString.TITLE;
@@ -62,13 +61,11 @@
    */
   const submitForm = async () => {
     const result = await requestHandler.login(formData) as ApiResponse;
-
-    ElMessage({
-      message: result.options?.message,
-      type: result.options?.type
-    })
-
     if (result.isSuccess) {
+      ElMessage({
+        message: '登录成功',
+        type: 'success'
+      })
       await RouterManager.skipRoute({path: RouterPath.Home});
     }
   }
