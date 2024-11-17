@@ -72,4 +72,22 @@ export class RequestHandler {
             }
         )
     }
+
+    /**
+     * 更新歌手信息
+     * @param data
+     */
+    updateSingerInfo(data) {
+        post({
+            url: '/singer/update',
+            data
+        }).then(
+            res => {
+                return res;
+            },
+            error => {
+                return error;
+            }
+        )
+    }
 }
