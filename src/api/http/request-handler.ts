@@ -1,4 +1,4 @@
-import {post, get} from "../../utils/http/axios";
+import {post, get, del} from "../../utils/http/axios";
 import {LocalStorageEnum} from "../../enums";
 
 /**
@@ -40,53 +40,38 @@ export class RequestHandler {
     /**
      * 获取所有歌手信息
      */
-    public async getSingerList() {
+    public async getSingerList(): Promise {
         return get({
             url: '/singer/list'
-        }).then(
-            res => {
-                return res;
-            },
-            error => {
-                // console.error(`错误信息: ${error}`);
-                return error;
-            }
-        )
+        })
     }
 
     /**
      * 添加歌手
      * @param data
      */
-    public async addSinger(data) {
-        post({
+    public async addSinger(data): Promise {
+        return post({
             url: '/singer/add',
             data
-        }).then(
-            res => {
-                return res;
-            },
-            error => {
-                return error;
-            }
-        )
+        })
     }
 
     /**
      * 更新歌手信息
      * @param data
      */
-    updateSingerInfo(data) {
-        post({
+    public async updateSingerInfo(data): Promise {
+        return post({
             url: '/singer/update',
             data
-        }).then(
-            res => {
-                return res;
-            },
-            error => {
-                return error;
-            }
-        )
+        })
+    }
+
+    public async deleteSingerInfo(ids: number[]): Promise {
+        return del({
+            url: '/singer/delete',
+            data: ids
+        })
     }
 }

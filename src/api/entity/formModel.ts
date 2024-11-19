@@ -25,7 +25,7 @@ export interface SingerFormData {
 /**
  * 歌手表单
  */
-export const SingerRuleForm = reactive<SingerFormData>({
+export const singerFormData = reactive<SingerFormData>({
     id: '',
     name: '',
     sex: 1,
