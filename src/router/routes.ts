@@ -39,6 +39,11 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('../views/subpages/SystemManager.vue')
             }
         ]
+    },
+    {
+        path: '/error',
+        name: 'error',
+        component: () => import('../views/Error.vue')
     }
 ];
 

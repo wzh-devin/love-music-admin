@@ -27,10 +27,14 @@ export class RouterManager {
                 this.skipPush(options.path, options.query);
                 break;
             }
+            case RouterPath.Error: {
+                this.skipPush(options.path, options.query);
+                break;
+            }
         }
     }
 
     private static skipPush(path?: string, query?: LocationQueryRaw): void {
-        router.push(path, query);
+        router.push({path, query});
     }
 }

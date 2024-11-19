@@ -32,7 +32,6 @@ export class RequestHandler {
             },
             error => {
                 // 错误信息
-                console.log(error);
                 return error;
             }
         )

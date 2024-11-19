@@ -6,7 +6,8 @@
  * @since 1.0
  */
 import axios, {AxiosInstance, options} from "axios";
-import {LocalStorageEnum} from "../../../enums";
+import {ErrorEnum, LocalStorageEnum, RouterPath} from "../../../enums";
+import {RouterManager} from "../../../manager/router-manager.ts";
 
 const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
@@ -43,7 +44,16 @@ axiosInstance.interceptors.response.use(
     error => {
         // 非2**状态码
         // TODO 处理并路由到相应错误页面
-        return Promise.reject(error.response);
+        if (error.code === ErrorEnum.ERR_NETWORK['code']) {
+            console.log('服务器异常');
+            // 转发到错误页面
+            RouterManager.skipRoute({
+                path: RouterPath.Error, query: {
+                    message: ErrorEnum.ERR_NETWORK['errMsg']
+                }
+            });
+        }
+        return Promise.reject(error);
     }
 );
 

@@ -61,6 +61,7 @@
    */
   const submitForm = async () => {
     const result = await requestHandler.login(formData) as ApiResponse;
+    console.log(result)
     if (result.isSuccess) {
       ElMessage({
         message: '登录成功',

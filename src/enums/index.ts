@@ -8,5 +8,6 @@
 import {StaticString} from './static-string';
 import {LocalStorageEnum} from "./localStorage.ts";
 import {RouterPath} from "./router-path.ts";
+import {ErrorEnum} from "./error.ts";
 
-export {StaticString, LocalStorageEnum, RouterPath}
+export {StaticString, LocalStorageEnum, RouterPath, ErrorEnum}
