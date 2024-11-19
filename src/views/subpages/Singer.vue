@@ -32,7 +32,7 @@
         <template #default="options">
           <el-button type="warning" @click="editSinger(options)">修改</el-button>
           <el-button type="danger" @click="delSinger(options)">删除</el-button>
-          <el-button type="primary">查看</el-button>
+<!--          <el-button type="primary">查看</el-button>-->
         </template>
       </el-table-column>
     </el-table>
