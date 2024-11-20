@@ -221,8 +221,7 @@
     loading.value = true;
     await requestHandler.getSingerList().then(
         (res) => {
-          tableData.length = 0;
-          tableData.push(...res.data);
+          res.data != null ? tableData.push(...res.data) : tableData.length = 0;
         },
         (error) => {
           // 获取数据错误
