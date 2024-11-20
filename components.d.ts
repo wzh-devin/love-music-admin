@@ -26,7 +26,6 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    ElUpload: typeof import('element-plus/es')['ElUpload']
     LoveHeader: typeof import('./src/components/layout/LoveHeader.vue')['default']
     LoveSideBar: typeof import('./src/components/layout/LoveSideBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
