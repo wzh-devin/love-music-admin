@@ -37,8 +37,8 @@
   const proxy = getCurrentInstance();
 
   const formData = reactive({
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123'
   });
 
   const rules = reactive({
