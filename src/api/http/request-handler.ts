@@ -1,5 +1,6 @@
-import {post, get, del} from "../../utils/http/axios";
+import {post, get, del, getBaseUrl} from "../../utils/http/axios";
 import {LocalStorageEnum} from "../../enums";
+import axiosInstance from "../../utils/http/axios/request.ts";
 
 /**
  * 2024/11/1 16:16
@@ -17,6 +18,28 @@ export class RequestHandler {
         return new RequestHandler();
     }
 
+    // TODO 获取请求头
+    public getHeaders(): object {
+        let headers = {};
+        // axiosInstance.request().then(
+        //     res => {
+        //         Object.assign(headers, res.config.headers);
+        //         delete headers['Content-Type'];
+        //     },
+        //     error => {
+        //         Object.assign(headers, error.config.headers);
+        //         delete headers['Content-Type'];
+        //     }
+        // )
+        return headers;
+    }
+
+    // 上传头像的请求路径
+    public getSingerHeaderImg(url: string): string {
+        return `${getBaseUrl()}/${url}`;
+    }
+
+    // region +++++++++++++++++++++++++++++++++++++++++++++++++++ 登录请求方法
     /**
      * 请求登录
      */
@@ -37,6 +60,9 @@ export class RequestHandler {
         )
     }
 
+    // endregion ------------------------------------------------
+
+    // region +++++++++++++++++++++++++++++++++++++++++++++++++++ 歌手请求方法
     /**
      * 获取所有歌手信息
      */
@@ -74,4 +100,8 @@ export class RequestHandler {
             data: ids
         })
     }
+
+    // endregion --------------------------------------------------
+
+
 }

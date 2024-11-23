@@ -7,9 +7,21 @@
       <el-table-column type="expand">
         <template #default="props">
           <div class="table-detail">
-            <img src="../../assets/images/header.jpg" alt="">
-            <el-tooltip class="" :content="props.row.description">
-              <el-button>简介</el-button>
+            <!-- <img src="../../assets/images/header.jpg" alt=""> -->
+            <!-- 头像上传 -->
+            <el-upload
+                ref="upload"
+                class="upload"
+                :action="uploadUrl(props.row.id)"
+                :limit="1"
+                :show-file-list="true"
+                @success="tableDataInit"
+            >
+              <el-avatar :size="100" :src="requestHandler.getSingerHeaderImg(`singer/download/${props.row.singerPicUrl}`)" :fit="'cover'"/>
+            </el-upload>
+
+            <el-tooltip :content="props.row.description">
+              <el-button class="desc">简介</el-button>
             </el-tooltip>
             <el-table :data="props.row.albums">
               <el-table-column label="专辑名" prop="name"/>
@@ -32,12 +44,14 @@
         <template #default="options">
           <el-button type="warning" @click="editSinger(options)">修改</el-button>
           <el-button type="danger" @click="delSinger(options)">删除</el-button>
-<!--          <el-button type="primary">查看</el-button>-->
+          <!--          <el-button type="primary">查看</el-button>-->
         </template>
       </el-table-column>
     </el-table>
   </div>
 
+  <!-- 弹窗 -->
+  <!-- region -->
   <!-- 添加歌手弹窗 -->
   <el-dialog
       v-model="addSingerDialog"
@@ -165,6 +179,7 @@
       </div>
     </template>
   </el-dialog>
+  <!-- endregion -->
 </template>
 
 <script setup lang="ts">
@@ -179,9 +194,13 @@
   import {FormRules} from "element-plus";
   import {RequestHandler} from "../../api";
   import {SingerFormData, singerFormData} from "../../api/entity/formModel.ts";
+  import avatarUrl from '../../assets/images/header.jpg';
 
   // 表格数据
   let tableData = reactive<Array<SingerFormData>>([]);
+
+  // 头像地址
+  // let avatarUrl = ref()
 
   // 添加歌手弹窗控制器
   let addSingerDialog = ref(false);
@@ -203,7 +222,6 @@
 
   // 表单数据清空
   const formDataClear = () => {
-    console.log(tableData.hasOwnProperty())
     Object.assign(singerFormData, {
       id: '',
       name: '',
@@ -221,6 +239,7 @@
     loading.value = true;
     await requestHandler.getSingerList().then(
         (res) => {
+          tableData.length = 0;
           res.data != null ? tableData.push(...res.data) : tableData.length = 0;
         },
         (error) => {
@@ -230,6 +249,20 @@
     )
     loading.value = false;
   }
+
+  // 获取图片上传的请求路径
+  const uploadUrl = (id) => {
+    if (id == null) return;
+    return requestHandler.getSingerHeaderImg(`singer/upload?id=${id}`);
+  };
+
+  // 弹窗属性规则
+  const rules = reactive<FormRules<SingerFormData>>({
+    name: {required: true, message: '请填写歌手名', trigger: 'blur'},
+    birthday: {required: true, message: '请填写出生日期'},
+    sex: {required: true, message: '请填写歌手性别'},
+    nationality: {required: true, message: '请填写歌手国籍'}
+  })
 
   // 添加歌手
   const addSinger = async () => {
@@ -298,42 +331,30 @@
     delSingerDialog.value = false;
   }
 
-  // 弹窗属性规则
-  const rules = reactive<FormRules<SingerFormData>>({
-    name: {required: true, message: '请填写歌手名', trigger: 'blur'},
-    birthday: {required: true, message: '请填写出生日期'},
-    sex: {required: true, message: '请填写歌手性别'},
-    nationality: {required: true, message: '请填写歌手国籍'}
-  })
+  // TODO 设置请求头
+ // const setUploadHeaders = requestHandler.getHeaders();
 
   // 检测tableData属性，刷新页面
   watch(tableData, () => {
-  }, {
-    deep: true
-  })
+  }, {deep: true})
 </script>
 
 <style scoped lang="scss">
-  $img-size: 120px;
+  //$img-size: 120px;
+  //
+  //img {
+  //  width: $img-size;
+  //  height: $img-size;
+  //  border-radius: 50%;
+  //}
 
-  img {
-    width: $img-size;
-    height: $img-size;
-    border-radius: 50%;
-  }
-
-  .singer-desc {
-    width: 600px;
-    height: 120px;
+  .upload {
+    float: left;
     margin-left: 30px;
-    display: inline-block;
-    overflow: scroll;
-    padding: 10px 0 10px 0;
-    text-overflow: ellipsis;
-    white-space: collapse;
+    margin-right: 30px;
   }
 
-  .table-detail {
-    margin-left: 45px;
+  .desc {
+    margin-top: 35px
   }
 </style>
