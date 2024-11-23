@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="page-handler">
-      <el-button type="success" @click="addSingerDialog = true">添加</el-button>
+      <el-button type="success" @click="addSingerDialog = true">添加歌手</el-button>
     </div>
     <el-table :data="tableData" style="width: 100%" current-row-key="row" v-loading="loading">
       <el-table-column type="expand">
@@ -29,8 +29,8 @@
               <el-table-column label="歌曲总数" prop="musicTotal"/>
               <el-table-column label="操作" prop="scope">
                 <template #default="options">
-                  <el-button type="danger">删除</el-button>
-                  <el-button type="primary">查看</el-button>
+                  <el-button type="danger" size="small">删除</el-button>
+                  <el-button type="primary" size="small">查看</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -42,8 +42,8 @@
       <el-table-column label="出生日期" prop="birthday"/>
       <el-table-column label="操作" prop="buttons">
         <template #default="options">
-          <el-button type="warning" @click="editSinger(options)">修改</el-button>
-          <el-button type="danger" @click="delSinger(options)">删除</el-button>
+          <el-button type="warning" @click="editSinger(options)" size="small">修改</el-button>
+          <el-button type="danger" @click="delSinger(options)" size="small">删除</el-button>
           <!--          <el-button type="primary">查看</el-button>-->
         </template>
       </el-table-column>
