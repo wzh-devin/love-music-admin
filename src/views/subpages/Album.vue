@@ -27,7 +27,7 @@
       </el-table-column>
       <el-table-column fixed="right" label="选项" min-width="200">
         <template #default="props">
-          <el-button type="primary" size="small" @click="musicInfo">歌曲信息</el-button>
+          <el-button type="primary" size="small" @click="musicInfo(props)">歌曲信息</el-button>
           <el-button type="warning" size="small" @click="showEditDialog(props)">修改</el-button>
         </template>
       </el-table-column>
@@ -159,6 +159,8 @@
   import {RequestHandler} from "../../api";
   import {AlbumFormData} from "../../api/entity/formModel.ts";
   import {ElMessage, FormRules} from "element-plus";
+  import {RouterManager} from "../../manager/router-manager.ts";
+  import {RouterPath} from "../../enums";
 
   const router = useRouter();
   const requestHandler = RequestHandler.getAlbumRequestInstance();
@@ -281,6 +283,19 @@
         }
     )
     tableData.dialog.delAlbum.isShow = Boolean(false);
+  }
+
+  /**
+   * 跳转到歌曲页面
+   * @param row
+   */
+  const musicInfo = ({row}) => {
+    RouterManager.skipRoute({
+      path: RouterPath.Music, query: {
+        albumId: row.id,
+        singerId: row.singerId
+      }
+    })
   }
 </script>
 

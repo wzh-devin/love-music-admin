@@ -46,3 +46,18 @@ export interface AlbumFormData {
     singerName: string;
     musicTotal: number;
 }
+
+/**
+ * 歌曲表单内实体数据
+ */
+export interface MusicFormData {
+    id: number;
+    singerId: number;
+    albumId: number;
+    singerName: string;
+    albumName: string;
+    name: string;
+    musicUrl: string;
+    musicPicUrl: string;
+    description: string;
+}

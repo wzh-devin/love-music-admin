@@ -111,6 +111,10 @@ export class RequestHandler {
     public static getAlbumRequestInstance(): AlbumRequest {
         return new AlbumRequest();
     }
+
+    public static getMusicRequestInstance(): MusicRequest {
+        return new MusicRequest();
+    }
 }
 
 /**
@@ -158,6 +162,17 @@ class AlbumRequest {
         return post({
             url: 'album/delAlbum',
             data
+        })
+    }
+}
+
+/**
+ * 歌曲请求
+ */
+class MusicRequest {
+    public async getMusicList(singerId, albumId): Promise {
+        return get({
+            url: `music/getMusicList?singerId=${singerId}&albumId=${albumId}`
         })
     }
 }
