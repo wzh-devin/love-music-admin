@@ -103,5 +103,23 @@ export class RequestHandler {
 
     // endregion --------------------------------------------------
 
+    public static getAlbumRequestInstance(): AlbumRequest {
+        return new AlbumRequest();
+    }
+}
 
+/**
+ * 专辑请求
+ */
+class AlbumRequest {
+
+    /**
+     * 获取歌手专辑列表
+     * @param singerId
+     */
+    public async getSingerAlbums(singerId): Promise {
+        return get({
+            url: `album/getSingerAlbums?singerId=${singerId}`
+        });
+    }
 }

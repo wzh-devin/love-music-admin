@@ -20,18 +20,18 @@
         </el-icon>
         <span>歌手管理</span>
       </el-menu-item>
-      <el-menu-item index="music">
-        <el-icon>
-          <Mic/>
-        </el-icon>
-        <span>歌曲管理</span>
-      </el-menu-item>
-      <el-menu-item index="album">
-        <el-icon>
-          <Tickets/>
-        </el-icon>
-        <span>专辑管理</span>
-      </el-menu-item>
+<!--      <el-menu-item index="music">-->
+<!--        <el-icon>-->
+<!--          <Mic/>-->
+<!--        </el-icon>-->
+<!--        <span>歌曲管理</span>-->
+<!--      </el-menu-item>-->
+<!--      <el-menu-item index="album">-->
+<!--        <el-icon>-->
+<!--          <Tickets/>-->
+<!--        </el-icon>-->
+<!--        <span>专辑管理</span>-->
+<!--      </el-menu-item>-->
     </el-menu>
   </div>
 </template>
