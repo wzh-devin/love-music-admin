@@ -68,7 +68,7 @@ export function put(config: AxiosRequestConfig): Promise {
  */
 export function del(config: AxiosRequestConfig): Promise {
     return new Promise((resolve, reject) => {
-        axiosInstance.post(config.url, config.data)
+        axiosInstance.delete(config.url, config.data)
             .then(
                 // 响应成功，返回数据
                 response => resolve(response?.data),

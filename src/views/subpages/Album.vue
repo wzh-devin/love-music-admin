@@ -43,19 +43,19 @@
     <el-form
         ref="albumFormRef"
         style="max-width: 600px"
-        :model="tableData.entityData"
+        :model="tableData.formData"
         :rules="tableData.dialog.addAlbum.rules"
         label-width="auto"
         status-icon
     >
       <el-form-item label="专辑名" prop="name">
-        <el-input v-model="tableData.entityData.name" placeholder="专辑名称"/>
+        <el-input v-model="tableData.formData.name" placeholder="专辑名称"/>
       </el-form-item>
       <el-form-item label="发行日期">
         <el-col :span="11">
           <el-form-item prop="releaseTime">
             <el-date-picker
-                v-model="tableData.entityData.releaseTime"
+                v-model="tableData.formData.releaseTime"
                 type="date"
                 value-format="YYYY-MM-DD"
                 aria-label="Pick a date"
@@ -66,7 +66,7 @@
         </el-col>
       </el-form-item>
       <el-form-item label="专辑描述" prop="description">
-        <el-input v-model="tableData.entityData.description" type="textarea" placeholder="专辑描述"/>
+        <el-input v-model="tableData.formData.description" type="textarea" placeholder="专辑描述"/>
       </el-form-item>
     </el-form>
 
@@ -95,7 +95,6 @@
   import {RequestHandler} from "../../api";
   import {AlbumFormData, singerFormData} from "../../api/entity/formModel.ts";
   import {ElMessage, FormRules} from "element-plus";
-  import Album from "./Album.vue";
 
   const router = useRouter();
   const requestHandler = RequestHandler.getAlbumRequestInstance();
@@ -133,8 +132,6 @@
           tableData.entityData.push(...res.data);
           // 页面loading
           tableData.loading = Boolean(true);
-
-          console.log(tableData)
           // 弹窗
           ElMessage({type: 'success', message: '加载成功'});
         },
@@ -160,10 +157,9 @@
 
   // 新增专辑
   const addAlbum = async () => {
-    console.log(tableData.formData);
     await requestHandler.addAlbum(tableData.formData).then(
         res => {
-          tableData.entityData.push(tableData.formData);
+          tableDataInit();
           ElMessage({type: 'success', message: '添加成功'});
         },
         error => {

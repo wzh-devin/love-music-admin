@@ -94,8 +94,12 @@ export class RequestHandler {
         })
     }
 
+    /**
+     * 删除歌手信息
+     * @param ids
+     */
     public async deleteSingerInfo(ids: number[]): Promise {
-        return del({
+        return post({
             url: '/singer/delete',
             data: ids
         })
@@ -120,6 +124,13 @@ class AlbumRequest {
     public async getSingerAlbums(singerId): Promise {
         return get({
             url: `album/getSingerAlbums?singerId=${singerId}`
+        });
+    }
+
+    public async addAlbum(data): Promise {
+        return post({
+            url: 'album/addAlbum',
+            data
         });
     }
 }
