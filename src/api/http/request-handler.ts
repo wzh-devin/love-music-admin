@@ -1,6 +1,7 @@
 import {post, get, del, getBaseUrl} from "../../utils/http/axios";
 import {LocalStorageEnum} from "../../enums";
 import axiosInstance from "../../utils/http/axios/request.ts";
+import {AlbumFormData} from "../entity/formModel.ts";
 
 /**
  * 2024/11/1 16:16
@@ -127,10 +128,36 @@ class AlbumRequest {
         });
     }
 
+    /**
+     * 新增歌手专辑
+     * @param data
+     */
     public async addAlbum(data): Promise {
         return post({
             url: 'album/addAlbum',
             data
         });
+    }
+
+    /**
+     * 修改歌手专辑
+     * @param data
+     */
+    public async editAlbum(data: AlbumFormData): Promise {
+        return post({
+            url: 'album/editAlbum',
+            data
+        })
+    }
+
+    /**
+     * 删除歌手专辑
+     * @param data
+     */
+    public delAlbum(data) {
+        return post({
+            url: 'album/delAlbum',
+            data
+        })
     }
 }
