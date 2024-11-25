@@ -44,7 +44,7 @@
         ref="albumFormRef"
         style="max-width: 600px"
         :model="tableData.formData"
-        :rules="tableData.dialog.addAlbum.rules"
+        :rules="tableData.dialog.rules"
         label-width="auto"
         status-icon
     >
