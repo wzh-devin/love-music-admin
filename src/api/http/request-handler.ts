@@ -1,6 +1,7 @@
 import {post, get, del, getBaseUrl} from "../../utils/http/axios";
 import {LocalStorageEnum} from "../../enums";
 import axiosInstance from "../../utils/http/axios/request.ts";
+import {AlbumFormData} from "../entity/formModel.ts";
 
 /**
  * 2024/11/1 16:16
@@ -94,8 +95,12 @@ export class RequestHandler {
         })
     }
 
+    /**
+     * 删除歌手信息
+     * @param ids
+     */
     public async deleteSingerInfo(ids: number[]): Promise {
-        return del({
+        return post({
             url: '/singer/delete',
             data: ids
         })
@@ -103,5 +108,56 @@ export class RequestHandler {
 
     // endregion --------------------------------------------------
 
+    public static getAlbumRequestInstance(): AlbumRequest {
+        return new AlbumRequest();
+    }
+}
 
+/**
+ * 专辑请求
+ */
+class AlbumRequest {
+
+    /**
+     * 获取歌手专辑列表
+     * @param singerId
+     */
+    public async getSingerAlbums(singerId): Promise {
+        return get({
+            url: `album/getSingerAlbums?singerId=${singerId}`
+        });
+    }
+
+    /**
+     * 新增歌手专辑
+     * @param data
+     */
+    public async addAlbum(data): Promise {
+        return post({
+            url: 'album/addAlbum',
+            data
+        });
+    }
+
+    /**
+     * 修改歌手专辑
+     * @param data
+     */
+    public async editAlbum(data: AlbumFormData): Promise {
+        return post({
+            url: 'album/editAlbum',
+            data
+        })
+    }
+
+    /**
+     * 删除歌手专辑
+     * @param data
+     */
+    public delAlbum(data) {
+        return post({
+            url: 'album/delAlbum',
+            data
+        })
+    }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="page-handler">
-      <el-button type="success" @click="addSingerDialog = true">添加</el-button>
+      <el-button type="success" @click="addSingerDialog = true">添加歌手</el-button>
     </div>
     <el-table :data="tableData" style="width: 100%" current-row-key="row" v-loading="loading">
       <el-table-column type="expand">
@@ -23,28 +23,17 @@
             <el-tooltip :content="props.row.description">
               <el-button class="desc">简介</el-button>
             </el-tooltip>
-            <el-table :data="props.row.albums">
-              <el-table-column label="专辑名" prop="name"/>
-              <el-table-column label="发布时间" prop="releaseTime"/>
-              <el-table-column label="歌曲总数" prop="musicTotal"/>
-              <el-table-column label="操作" prop="scope">
-                <template #default="options">
-                  <el-button type="danger">删除</el-button>
-                  <el-button type="primary">查看</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
           </div>
         </template>
       </el-table-column>
       <el-table-column label="名称" prop="name"/>
       <el-table-column label="性别" prop="sex"/>
       <el-table-column label="出生日期" prop="birthday"/>
-      <el-table-column label="操作" prop="buttons">
+      <el-table-column label="操作" prop="buttons" fixed="right" min-width="200">
         <template #default="options">
-          <el-button type="warning" @click="editSinger(options)">修改</el-button>
-          <el-button type="danger" @click="delSinger(options)">删除</el-button>
-          <!--          <el-button type="primary">查看</el-button>-->
+          <el-button type="warning" @click="editSinger(options)" size="small">修改</el-button>
+          <el-button type="danger" @click="delSinger(options)" size="small">删除</el-button>
+          <el-button type="primary" @click="watchAlbum(options)" size="small">查看专辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -195,6 +184,8 @@
   import {RequestHandler} from "../../api";
   import {SingerFormData, singerFormData} from "../../api/entity/formModel.ts";
   import avatarUrl from '../../assets/images/header.jpg';
+  import {RouterManager} from "../../manager/router-manager.ts";
+  import {RouterPath} from "../../enums";
 
   // 表格数据
   let tableData = reactive<Array<SingerFormData>>([]);
@@ -329,6 +320,20 @@
             }
         )
     delSingerDialog.value = false;
+  }
+
+  /**
+   * 查看专辑信息
+   * @param row
+   */
+  const watchAlbum = ({row}) => {
+    // 转发到专辑页面
+    RouterManager.skipRoute({
+      path: RouterPath.Album,
+      query: {
+        singerId: row.id
+      }
+    })
   }
 
   // TODO 设置请求头

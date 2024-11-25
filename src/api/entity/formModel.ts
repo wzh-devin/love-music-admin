@@ -19,7 +19,6 @@ export interface SingerFormData {
     singerPicUrl: string;
     description: string;
     nationality: string;
-    albums: Array
 }
 
 /**
@@ -32,6 +31,18 @@ export const singerFormData = reactive<SingerFormData>({
     birthday: '',
     singerPicUrl: '',
     description: '',
-    nationality: '',
-    albums: []
+    nationality: ''
 })
+
+/**
+ * 专辑表单实体数据
+ */
+export interface AlbumFormData {
+    id: number;
+    name: string;
+    releaseTime: string;
+    description: string;
+    singerId: number;
+    singerName: string;
+    musicTotal: number;
+}
