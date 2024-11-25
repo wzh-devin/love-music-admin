@@ -34,6 +34,7 @@
           <el-button type="warning" @click="editSinger(options)" size="small">修改</el-button>
           <el-button type="danger" @click="delSinger(options)" size="small">删除</el-button>
           <el-button type="primary" @click="watchAlbum(options)" size="small">查看专辑</el-button>
+          <el-button type="primary" @click="musicList(options)" size="small">歌曲管理</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -332,6 +333,20 @@
       path: RouterPath.Album,
       query: {
         singerId: row.id
+      }
+    })
+  }
+
+  /**
+   * 歌曲列表
+   * @param row
+   */
+  const musicList = ({row}) => {
+    RouterManager.skipRoute({
+      path: RouterPath.Music,
+      query: {
+        singerId: row.id,
+        albumId: -1
       }
     })
   }

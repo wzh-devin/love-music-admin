@@ -16,7 +16,7 @@
       <el-table-column type="selection" width="55"/>
       <el-table-column property="name" label="歌曲名"/>
       <el-table-column property="singerName" label="歌手名"/>
-      <el-table-column prop="albumName" label="专辑名" v-if="isExistAlbum"/>
+      <el-table-column prop="albumName" label="专辑名" v-if="tableData.albumId != -1"/>
       <el-table-column label="歌曲描述">
         <template #default="props">
           {{ props.row.description }}
@@ -58,13 +58,6 @@
       isShow: Boolean(false)
     }
   })
-
-  /**
-   * 判断album是否存在
-   */
-  const isExistAlbum = (): boolean => {
-    return Boolean(tableData.albumId == undefined || null);
-  }
 
   onMounted(() => {
     tableDataInit();
