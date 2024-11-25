@@ -13,7 +13,7 @@
         @selection-change="handleSelectionChange"
         :v-loading="tableData.loading"
     >
-      <el-table-column type="selection" :selectable="selectable" width="55"/>
+      <el-table-column type="selection" width="55"/>
       <el-table-column property="name" label="专辑名"/>
       <el-table-column property="singerName" label="歌手名"/>
       <el-table-column property="musicTotal" label="专辑歌曲总数"/>
