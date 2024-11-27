@@ -189,7 +189,7 @@
       rules: reactive<FormRules<AlbumFormData>>({
         name: {required: true, message: '请填写专辑名称'},
         releaseTime: {required: true, message: '请选择发行日期'},
-        description: {required: true, message: '请填写专辑描述'}
+        description: {required: false}
       })
     }
   })

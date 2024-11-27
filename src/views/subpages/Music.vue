@@ -28,6 +28,39 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 新增专辑弹窗 -->
+    <el-dialog
+        v-model="tableData.dialog.addMusic.isShow"
+        title="添加歌手"
+        @open="formDataClear"
+    >
+      <el-form
+          ref="albumFormRef"
+          style="max-width: 600px"
+          :model="tableData.formData"
+          :rules="tableData.dialog.rules"
+          label-width="auto"
+          status-icon
+      >
+        <el-form-item label="音乐名称" prop="name">
+          <el-input v-model="tableData.formData.name" placeholder="音乐名称"/>
+        </el-form-item>
+        <el-form-item label="音乐描述" prop="description">
+          <el-input v-model="tableData.formData.description" type="textarea" placeholder="音乐描述"/>
+        </el-form-item>
+      </el-form>
+
+
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="tableData.dialog.addMusic.isShow = Boolean(false)">取消</el-button>
+          <el-button type="primary" @click="addMusic">
+            确定
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -36,7 +69,7 @@
   import {MusicFormData} from "../../api/entity/formModel.ts";
   import {useRouter} from "vue-router";
   import {RequestHandler} from "../../api";
-  import {ElMessage} from "element-plus";
+  import {ElMessage, FormRules} from "element-plus";
 
   /**
    * 2024/11/4 10:07
@@ -50,12 +83,18 @@
 
   const tableData = reactive({
     singerId: router.currentRoute.value.query['singerId'],
-    albumId: router.currentRoute.value.query['albumId'],
+    albumId: router.currentRoute.value.query['albumId'] || -1,
     formData: reactive<MusicFormData>({}),
     entityData: Array<MusicFormData>(),
     loading: Boolean(false),
     dialog: {
-      isShow: Boolean(false)
+      addMusic: {
+        isShow: Boolean(false),
+      },
+      rules: reactive<FormRules<MusicFormData>>({
+        name: {required: true, message: '请输入音乐名称'},
+        description: {required: false}
+      })
     }
   })
 
@@ -78,6 +117,34 @@
         }
     );
     tableData.loading = Boolean(false);
+  }
+
+  // 表单数据清空
+  const formDataClear = () => {
+    Object.assign(tableData.formData, {
+      id: '',
+      singerId: tableData.singerId,
+      albumId: tableData.albumId,
+      singerName: '',
+      albumName: '',
+      name: '',
+      musicUrl: '',
+      musicPicUrl: '',
+      description: '',
+    })
+  }
+
+  const addMusic = async () => {
+    await requestHandler.addMusic(tableData.formData).then(
+        res => {
+          tableDataInit();
+          ElMessage({type: 'success', message: '添加成功'});
+        },
+        error => {
+          ElMessage({type: 'error', message: '添加失败, 请联系管理员'});
+        }
+    )
+    tableData.dialog.addMusic.isShow = Boolean(false);
   }
 </script>
 

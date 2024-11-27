@@ -1,7 +1,7 @@
 import {post, get, del, getBaseUrl} from "../../utils/http/axios";
 import {LocalStorageEnum} from "../../enums";
 import axiosInstance from "../../utils/http/axios/request.ts";
-import {AlbumFormData} from "../entity/formModel.ts";
+import {AlbumFormData, MusicFormData} from "../entity/formModel.ts";
 
 /**
  * 2024/11/1 16:16
@@ -174,5 +174,13 @@ class MusicRequest {
         return get({
             url: `music/getMusicList?singerId=${singerId}&albumId=${albumId}`
         })
+    }
+
+    /**
+     * 新增歌曲
+     * @param data
+     */
+    public async addMusic(data: MusicFormData) {
+
     }
 }
