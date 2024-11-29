@@ -17,7 +17,7 @@
                 :show-file-list="true"
                 @success="tableDataInit"
             >
-              <el-avatar :size="100" :src="requestHandler.getSingerHeaderImg(`singer/download/${props.row.singerPicUrl}`)" :fit="'cover'"/>
+              <el-avatar :size="100" :src="requestHandler.getSingerHeaderImg(`download${props.row.singerPicPath}`)" :fit="'cover'"/>
             </el-upload>
 
             <el-tooltip :content="props.row.description">

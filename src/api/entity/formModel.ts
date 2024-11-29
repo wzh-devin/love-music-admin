@@ -16,9 +16,9 @@ export interface SingerFormData {
     name: string;
     sex: string;
     birthday: string;
-    singerPicUrl: string;
     description: string;
     nationality: string;
+    singerPicPath: string;
 }
 
 /**
@@ -29,9 +29,9 @@ export const singerFormData = reactive<SingerFormData>({
     name: '',
     sex: 1,
     birthday: '',
-    singerPicUrl: '',
     description: '',
-    nationality: ''
+    nationality: '',
+    singerPicPath: '',
 })
 
 /**
