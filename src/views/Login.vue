@@ -26,15 +26,28 @@
    * @version 1.0
    * @since 1.0
    */
-  import {getCurrentInstance, reactive} from "vue";
+  import {getCurrentInstance, onUnmounted, reactive} from "vue";
   import {RouterPath, StaticString} from "../enums";
   import {RequestHandler} from "../api";
   import {ApiResponse} from "../api/entity/response.ts";
   import {RouterManager} from "../manager/router-manager.ts";
+  import {getWsBaseURL, Ws} from "../utils/http/ws";
+  import {useStore} from "vuex";
 
   const title = StaticString.TITLE;
   const requestHandler = RequestHandler.getInstance();
-  const proxy = getCurrentInstance();
+  // const proxy = getCurrentInstance();
+
+  const store = useStore();
+
+  // 获取websocket实例
+  store.state.ws = Ws.getInstance(getWsBaseURL().concat('/check'), {
+    heartbeatInterval: 2000,
+    reconnectInterval: 1000,
+    maxReconnectTimes: 5
+  });
+
+  console.log(store.getters)
 
   const formData = reactive({
     username: 'admin',
@@ -67,6 +80,7 @@
         type: 'success'
       })
       await RouterManager.skipRoute({path: RouterPath.Home});
+      // 开启WS
     }
   }
 </script>

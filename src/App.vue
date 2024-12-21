@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import Login from "./views/Login.vue";
+  import {onUnmounted} from "vue";
+
+  onUnmounted(() => {
+    // 应用被卸载、销毁执行回调函数
+  })
 </script>
 
 <template>
